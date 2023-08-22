@@ -171,6 +171,18 @@ function Floor(number) {
 function Round(number) {
     return(Math.round(number))
 }
+function Save(data,name) {
+    localStorage.setItem(data, name);
+}
+function GetSaved(name) {
+    return(localStorage.getItem(name))
+}
+function RemoveItem(name) {
+    localStorage.removeItem(name)
+}
+function ClearStorage() {
+    localStorage.clear();
+}
 function init() {
     keyboardInit();
 }
