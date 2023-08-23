@@ -1,4 +1,5 @@
 canvas = new Canvas(1200,600)
+canvas.smoothing(false)
 canvas.setTitle("New Game")
 start = new Button(100,100,200,100,"blue")
 class Player {

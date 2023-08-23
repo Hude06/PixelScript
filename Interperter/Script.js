@@ -157,6 +157,9 @@ class Canvas {
     setTitle(name) {
         document.querySelector("title").innerHTML = name
     }
+    smoothing(d) {
+        ctx.imageSmoothingEnabled = d;
+    }
     clear() {
         log("Clearing Screen")
         ctx.clearRect(0, 0, this.width, this.height);
