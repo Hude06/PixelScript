@@ -154,6 +154,11 @@ class Canvas {
         ctx.strokeStyle = color
         ctx.strokeRect(x,y,w,h)
     }
+    drawImage(image,x,y,w,h) {
+        this.sprite = new Image();
+        this.sprite.src = image
+        ctx.drawImage(this.sprite,x,y,w,h)
+    }
     setTitle(name) {
         document.querySelector("title").innerHTML = name
     }
