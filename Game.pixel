@@ -1,5 +1,5 @@
-canvas = new Canvas(1200,600)
-grid = new Grid(50,30)
+canvas = new Canvas(1600,800)
+grid = new Grid(54,27)
 canvas.smoothing(false)
 canvas.setTitle("New Game")
 class Player {
