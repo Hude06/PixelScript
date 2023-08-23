@@ -40,7 +40,7 @@ function loop() {
     canvas.clear();
     particals.update_particles();
     player.update();
-    Camera();
+    cameraFolow(player);
     grid.fill('black')
     grid.setAt(2,2,"red")
     grid.setAt(7,4,"red")

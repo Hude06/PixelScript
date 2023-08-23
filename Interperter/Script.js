@@ -202,9 +202,9 @@ class Grid {
     }
 }
 
-function Camera() {
-    const cameraX = (canvas.width / 30) - player.bounds.x*30;
-    const cameraY = (canvas.height /30) - player.bounds.y*30;
+function cameraFolow(OTF) {
+    const cameraX = (canvas.width / 30) - OTF.bounds.x*30;
+    const cameraY = (canvas.height /30) - OTF.bounds.y*30;
     ctx.save();
     ctx.translate(cameraX+canvas.width/2-50, cameraY+canvas.height/2);
 }   
