@@ -40,7 +40,7 @@ function loop() {
     canvas.clear();
     particals.update_particles();
     player.update();
-
+    Camera();
     grid.fill('black')
     grid.setAt(2,2,"red")
     grid.setAt(7,4,"red")
@@ -48,6 +48,7 @@ function loop() {
     grid.draw();
     particals.draw_particles("255,0,0")
     player.draw();
+    canvas.restore();
     currentKey.clear();
     update(loop);
 }
