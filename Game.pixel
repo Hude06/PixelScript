@@ -1,29 +1,37 @@
 canvas = new Canvas(1200,600)
+grid = new Grid(50,30)
 canvas.smoothing(false)
 canvas.setTitle("New Game")
-
 class Player {
     constructor() {
-        this.bounds = new Rect(10,10,60,60)
+        this.bounds = new Rect(0,0,30,30)
     }
     draw() {
-        canvas.drawImage("../Player.png",this.bounds.x,this.bounds.y,this.bounds.w,this.bounds.h,"red")
+        canvas.drawImage("../Player.png",this.bounds.x*30,this.bounds.y*30,this.bounds.w,this.bounds.h,"red")
     }
     update() {
-         if (currentKey.get("p")) {
+        if (currentKey.get("p")) {
             particals.start(10,10)
-         }
+        }
         if (currentKey.get("w")) {
-            player.bounds.y -= 1
+            if (grid.canMove(this,"forward")) {
+                player.bounds.y -= 1
+            }
         }
         if (currentKey.get("s")) {
-            player.bounds.y += 1
+            if (grid.canMove(this,"down")) { 
+                player.bounds.y += 1
+            }
         }
         if (currentKey.get("a")) {
-            player.bounds.x -= 1
+            if (grid.canMove(this,"left")) {
+                player.bounds.x -= 1
+            }
         }
         if (currentKey.get("d")) {
-            player.bounds.x += 1
+            if (grid.canMove(this,"right")) {
+                player.bounds.x += 1
+            }
         }
     }
 } 
@@ -33,8 +41,14 @@ function loop() {
     particals.update_particles();
     player.update();
 
+    grid.fill('black')
+    grid.setAt(2,2,"red")
+    grid.setAt(7,4,"red")
+    grid.setAt(5,2,"white")
+    grid.draw();
     particals.draw_particles("255,0,0")
     player.draw();
+    currentKey.clear();
     update(loop);
 }
 loop();

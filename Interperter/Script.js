@@ -132,6 +132,75 @@ function log() {
 function update(name) {
     requestAnimationFrame(name)
 }
+class Grid {
+    constructor(w,h) {
+        this.width = w
+        this.height = h
+        this.array = []
+        this.tileSize = 30
+        for(let j = 0; j<this.height; j++) {
+            let row = []
+            for(let i = 0; i<this.width; i++) {
+                row[i] = 0
+            }
+            this.array[j] = row
+        }
+    }
+    getAt(x,y) {
+        return this.array[y][x]
+    }
+    setAt(x,y,v) {
+        this.array[y][x] = v
+    }
+    fill(color) {
+        for (let j=0; j<this.height; j++) {
+            for (let i=0; i<this.width; i++) {
+                this.setAt(i,j,color)
+            }
+        }
+    }
+    draw() {
+        for (let h = 0; h < this.height; h++) {
+            for (let w = 0; w < this.width; w++) {
+                if (this.getAt(w,h) === 'black') {
+                    ctx.fillStyle = "black"
+                    ctx.fillRect(w*(this.tileSize),h*(this.tileSize),this.tileSize,this.tileSize)
+                }
+                if (this.getAt(w,h) === 'red') {
+                    ctx.fillStyle = "red"
+                    ctx.fillRect(w*(this.tileSize),h*(this.tileSize),this.tileSize,this.tileSize)
+                }
+                if (this.getAt(w,h) === 'white') {
+                    ctx.fillStyle = "white"
+                    ctx.fillRect(w*(this.tileSize),h*(this.tileSize),this.tileSize,this.tileSize)
+                }
+            }
+        } 
+    }
+    canMove(player,direction) {
+        if (direction === "forward") {
+            if (this.getAt((player.bounds.x),(player.bounds.y)-1) === "black") {
+                return true;
+            }
+        }
+        if (direction === "left") {
+            if (this.getAt((player.bounds.x)-1,(player.bounds.y)) === "black") {
+                return true;
+            }
+        }
+        if (direction === "down") {
+            if (this.getAt((player.bounds.x),(player.bounds.y)+1) === "black") {
+                return true;
+            }
+        }
+        if (direction === "right") {
+            if (this.getAt((player.bounds.x)+1,(player.bounds.y)) === "black") {
+                return true;
+            }
+
+        }
+    }
+}
 class Canvas {
     constructor(width,height) {
         this.width = width
