@@ -2,9 +2,41 @@ canvas = new Canvas(1600,800)
 grid = new Grid(54,27)
 canvas.smoothing(false)
 canvas.setTitle("New Game")
-class Player {
+class Bullet {
+    constructor(player) {
+        this.direction = player.direction
+        this.bounds = new Rect((player.bounds.x*30)+10,(player.bounds.y*30)+10,10,10);
+        this.speed = player.bulletSpeed 
+    }
+    update() {
+        log(this.XY)
+        if (this.direction === "left") {
+            this.bounds.x -= this.speed;
+        }
+        if (this.direction === "right") {
+            this.bounds.x += this.speed;
+        }
+        if (this.direction === "forward") {
+            this.bounds.y -= this.speed;
+        }
+        if (this.direction === "down") {
+            this.bounds.y += this.speed;
+        }
+        
+    }
+    draw() {
+        log("New Buylllet")
+        canvas.fillRect(this.bounds.x,this.bounds.y,this.bounds.w,this.bounds.h,"white")
+    }
+}
+bullets = []
+class Player { 
     constructor() {
         this.bounds = new Rect(0,0,30,30)
+        this.direction = ""
+        this.bulletSpeed = 3;
+        this.bulletRealoadTime = 1;
+        this.ableToShoot = true;
     }
     draw() {
         canvas.drawImage("../Player.png",this.bounds.x*30,this.bounds.y*30,this.bounds.w,this.bounds.h,"red")
@@ -15,22 +47,38 @@ class Player {
         }
         if (currentKey.get("w")) {
             if (grid.canMove(this,"forward")) {
+                this.direction = "forward"
                 player.bounds.y -= 1
             }
         }
         if (currentKey.get("s")) {
             if (grid.canMove(this,"down")) { 
+                this.direction = "down"
                 player.bounds.y += 1
             }
         }
         if (currentKey.get("a")) {
             if (grid.canMove(this,"left")) {
+                this.direction = "left"
+
                 player.bounds.x -= 1
             }
         }
         if (currentKey.get("d")) {
             if (grid.canMove(this,"right")) {
+                this.direction = "right"
                 player.bounds.x += 1
+            }
+        }
+        if (currentKey.get(" ")) {
+            if (this.ableToShoot) {
+            log("Space")
+            bullets.push(new Bullet(player));
+             this.ableToShoot = false;
+            setTimeout(() => {
+                this.ableToShoot = true;
+            }, 1000);
+
             }
         }
     }
@@ -46,6 +94,10 @@ function loop() {
     grid.setAt(7,4,"red")
     grid.setAt(5,2,"white")
     grid.draw();
+    for (let i = 0; i < bullets.length; i++) {
+        bullets[i].draw();
+        bullets[i].update();
+    }
     particals.draw_particles("255,0,0")
     player.draw();
     canvas.restore();
