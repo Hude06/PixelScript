@@ -179,25 +179,36 @@ class Grid {
     }
     canMove(player,direction) {
         if (direction === "forward") {
-            if (this.getAt((player.bounds.x),(player.bounds.y)-1) === "black") {
-                return true;
+            if (player.bounds.y <= 0) {
+            } else {
+                if (this.getAt((player.bounds.x),(player.bounds.y)-1) === "black") {
+                    return true;
+                }
             }
         }
         if (direction === "left") {
-            if (this.getAt((player.bounds.x)-1,(player.bounds.y)) === "black") {
-                return true;
+            if (player.bounds.x <= 0) {
+            } else {
+                if (this.getAt((player.bounds.x)-1,(player.bounds.y)) === "black") {
+                    return true;
+                }
             }
         }
         if (direction === "down") {
-            if (this.getAt((player.bounds.x),(player.bounds.y)+1) === "black") {
+            if (player.bounds.y >= 26) {
+            } else {
+                if (this.getAt((player.bounds.x),(player.bounds.y)+1) === "black") {
                 return true;
+                }
             }
         }
         if (direction === "right") {
-            if (this.getAt((player.bounds.x)+1,(player.bounds.y)) === "black") {
+            if (player.bounds.y >= 54) {
+            } else {
+                if (this.getAt((player.bounds.x)+1,(player.bounds.y)) === "black") {
                 return true;
+                }
             }
-
         }
     }
 }
@@ -242,7 +253,6 @@ class Canvas {
         ctx.imageSmoothingEnabled = d;
     }
     clear() {
-        log("Clearing Screen")
         ctx.clearRect(0, 0, this.width, this.height);
     }
     save() {
